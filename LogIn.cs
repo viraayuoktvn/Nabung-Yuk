@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using MySql.Data.MySqlClient;
 
 namespace Nabung_Yuk
@@ -19,11 +19,11 @@ namespace Nabung_Yuk
                 Console.WriteLine("Enter password: ");
                 Password = Console.ReadLine();
 
-                MySqlCommand cmd = conn.connection.CreateCommand();
-                cmd.CommandText = System.Data.CommandType.Text.ToString();
-                cmd.CommandText = "Select * from login where username = '"+Username+"' and password = '"+Password+"'";
+                MySqlCommand command = conn.connection.CreateCommand();
+                command.CommandText = System.Data.CommandType.Text.ToString();
+                command.CommandText = "Select * from login where username = '"+Username+"' and password = '"+Password+"'";
 
-                MySqlDataReader check = cmd.ExecuteReader();
+                MySqlDataReader check = command.ExecuteReader();
                 
                 if(check.HasRows)
                 {
