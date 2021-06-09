@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -13,6 +13,12 @@ namespace Nabung_Yuk
         {
             LogIn login = new LogIn();
             login.loginUser();
+        }
+
+        public void FinalResult()
+        {
+            MoneyData datauang = new MoneyData();
+            datauang.InputUpdate();
         }
     }
 }
