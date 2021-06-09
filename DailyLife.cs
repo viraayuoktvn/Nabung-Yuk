@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -6,14 +6,14 @@ namespace Nabung_Yuk
 {
     public class DailyLife : Outcome
     {
-        public double nomDL { get; set; }  
+        private double nomDL; 
 
-        public double nominalDL
+        public double nominalDL()
         {
-            get
-            {
-                return nomDL;
-            }
+            Console.WriteLine("Masukkan pengeluaran kategori Daily Life : ");
+            double nomDL = Convert.ToDouble(Console.ReadLine());
+
+            return nomDL;
         }
     }
 }
