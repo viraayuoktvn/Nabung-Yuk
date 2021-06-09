@@ -1,78 +1,81 @@
-﻿using System;
+using System;
 using MySql.Data.MySqlClient;
 
 namespace Nabung_Yuk
 {
     class MoneyData
     {
-       public static void RecordedMoney()
-       {
-           Console.WriteLine("\nSelamat datang!\n");
+        public static void RecordedMoney()
+        {
+            Console.WriteLine("\nSelamat datang!\n");
            
-           ConnectDB conn = new ConnectDB();
-           using(conn.connection)
-           {
-               try
-               {
-                   conn.connection.Open();
+            ConnectDB conn = new ConnectDB();
+            using(conn.connection)
+            {
+                try
+                {
+                    conn.connection.Open();
                    
-                   MySqlCommand command = conn.connection.CreateCommand();
-                   command.CommandText = System.Data.CommandType.Text.ToString();
-                   command.CommandText = "Select * from moneydata";
+                    MySqlCommand command = conn.connection.CreateCommand();
+                    command.CommandText = System.Data.CommandType.Text.ToString();
+                    command.CommandText = "Select * from moneydata";
 
-                   MySqlDataReader reader = command.ExecuteReader();
+                    MySqlDataReader reader = command.ExecuteReader();
+ 
+                    var data = "[Month]\t[Income]\t\t[Outcome]";
+ 
+                    if (reader.HasRows)
+                    {
+                        while(reader.Read())
+                        {
+                            data += reader.GetInt32(0) + "\t" + reader.GetDouble(1) + "\t\t" + reader.GetDouble(2) +
+                            Environment.NewLine;
+                        }
+                    }
+                    Console.WriteLine(data);
+ 
+                    reader.Close();
+                    conn.connection.Close();
+                }
+                catch (MySql.Data.MySqlClient.MySqlException e)
+                {
+                    Console.WriteLine("Error : " + e.Message.ToString());
+                }
+            }
+        } 
 
-                   var data = "[Month]\t[Income]\t\t[Outcome]\n";
+        public void InputUpdate()
+        {
+            RecordedMoney();
 
-                   if (reader.HasRows)
-                   {
-                       while(reader.Read())
-                       {
-                           data += reader.GetInt32(0) + "\t" + reader.GetDouble(1) + "\t\t" + reader.GetDouble(2) +
-                           Environment.NewLine;
-                       }
-                   }
-                   Console.WriteLine(data);
+            Income income = new Income();
+            double pemasukkan = income.InputIncome();
 
-                   reader.Close();
-                   conn.connection.Close();
-               }
-               catch (MySql.Data.MySqlClient.MySqlException e)
-               {
-                   Console.WriteLine("Error : " + e.Message.ToString());
-               }
-           }
-       } 
+            Console.WriteLine("Masukkan pengeluaranmu bulan ini!");
+            DailyLife dailyl = new DailyLife();
+            double DLnom = dailyl.nominalDL();
 
-       public void InputUpdate()
-       {
-           RecordedMoney();
+            SocialSpending socials = new SocialSpending();
+            double SSnom = socials.nominalSS();
 
-           int activity = 0;
-           while (activity != -1)
-           {
-               Console.WriteLine("Ingin memasukkan pengeluaran atau pemasukkan?");
-               Console.WriteLine("1. Pemasukkan");
-               Console.WriteLine("2. Pengeluaran");
-               activity = Convert.ToInt16(Console.ReadLine());
+            LifeStyle lstyle = new LifeStyle();
+            double LSnom = lstyle.nominalLS();
 
-               switch (activity)
-               {
-                   case 1:
-                   Income income = new Income();
-                   income.InputIncome();
-                   break;
+            double totalout = DLnom + SSnom + LSnom;
+            Console.WriteLine("Total pengeluaranmu bulan ini : " + totalout);
 
-                   case 2:
-                   TotalOutcome outcome = new TotalOutcome();
-                   outcome.CalculateTotalOutcome();
-                   break;
+            Console.WriteLine("Masukkan target pengeluaran yang kamu inginkan: ");
+            double targetOutcome = Convert.ToDouble(Console.ReadLine());           
 
-                   default:
-                   Console.WriteLine("Pilihan tidak tersedia!");
-                   break;
-               }
-           }
-       }
+            double reachTarget = (targetOutcome/totalout) * 100;
+
+            double mustBeSaved = totalout - targetOutcome;
+
+            Console.WriteLine("Realisasi target pengeluaranmu bulan ini mencapai persentase " + reachTarget);
+            Console.WriteLine("Kamu harus menghemat pengeluaran di bulan depan sebanyak " + mustBeSaved);
+
+            Console.WriteLine("Semangat menabung!");
+        }
+
     }
 }
