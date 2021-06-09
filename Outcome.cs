@@ -5,6 +5,6 @@ namespace Nabung_Yuk
 {
     public abstract class Outcome
     {
-        private double nominal;
+        private double nominal { get; set; }
     }
 }
