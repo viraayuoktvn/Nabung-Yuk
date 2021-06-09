@@ -1,18 +1,18 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 namespace Nabung_Yuk
 {
     public class SocialSpending : Outcome
     {
-        public double nomSS { get; set; }
+        private double nomSS;
 
-        public double nominalSS
+        public double nominalSS()
         {
-            get
-            {
-                return nomSS;
-            }
+            Console.WriteLine("Masukkan pengeluaran kategori Social Spending : ");
+            double nomSS = Convert.ToDouble(Console.ReadLine());
+
+            return nomSS;
         }
     }
 }
