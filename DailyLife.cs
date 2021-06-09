@@ -5,9 +5,7 @@ using System.Text;
 namespace Nabung_Yuk
 {
     public class DailyLife : Outcome
-    {
-        private double nomDL; 
-
+    {        
         public double nominalDL()
         {
             Console.WriteLine("Masukkan pengeluaran kategori Daily Life : ");
