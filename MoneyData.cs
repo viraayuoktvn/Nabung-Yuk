@@ -22,7 +22,7 @@ namespace Nabung_Yuk
 
                     MySqlDataReader reader = command.ExecuteReader();
  
-                    var data = "[Month]\t[Income]\t\t[Outcome]";
+                    var data = "[Month]\t[Income]\t[Outcome]\n";
  
                     if (reader.HasRows)
                     {
