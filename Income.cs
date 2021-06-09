@@ -1,11 +1,11 @@
-﻿using System;
+using System;
+using System.Collections.Generic;
 
 namespace Nabung_Yuk
 {
     public class Income
-    {        
-
-        public double nominal { get; set; }      
+    {
+        private double nominal;
 
         public double InputIncome()
         {
@@ -14,6 +14,5 @@ namespace Nabung_Yuk
 
             return nominal;
         }
-
     }
 }
