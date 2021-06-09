@@ -5,8 +5,8 @@ namespace Nabung_Yuk
 {
     class LogIn
     {
-        public string Username { get; set; }
-        public string Password { get; set; }
+        private string Username { get; set; }
+        private string Password { get; set; }
 
         public void loginUser()
         {
@@ -27,7 +27,7 @@ namespace Nabung_Yuk
                 
                 if(check.HasRows)
                 {
-                    Console.WriteLine("Login success!");
+                    Console.WriteLine("\nLogin success!");
                     conn.connection.Close();
                     MoneyData recMoney = new MoneyData();
                     recMoney.InputUpdate();
